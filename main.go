@@ -43,13 +43,16 @@ func main() {
 
 	out, _ := os.Create(args[6] + ".png")
 
-	subimg := img.(subImager)
-
 	x1, _ := strconv.ParseInt(args[2], 10, 64)
 	y1, _ := strconv.ParseInt(args[3], 10, 64)
 	x2, _ := strconv.ParseInt(args[4], 10, 64)
 	y2, _ := strconv.ParseInt(args[5], 10, 64)
 
-	png.Encode(out, subimg.SubImage(image.Rect(int(x1), int(y1), int(x2), int(y2))))
+	// type assertion
+	subimg := img.(subImager)
+
+	actualSubImage := subimg.SubImage(image.Rect(int(x1), int(y1), int(x2), int(y2)))
+
+	png.Encode(out, actualSubImage)
 
 }
