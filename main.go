@@ -38,6 +38,7 @@ func main() {
 	}
 
 	out, _ := os.Create(args[6] + ".png")
+	defer out.Close()
 
 	x1, _ := strconv.ParseInt(args[2], 10, 64)
 	y1, _ := strconv.ParseInt(args[3], 10, 64)
