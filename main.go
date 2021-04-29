@@ -12,10 +12,6 @@ import (
 	_ "golang.org/x/image/tiff"
 )
 
-type subImager interface {
-	SubImage(r image.Rectangle) image.Image
-}
-
 func main() {
 
 	args := os.Args
@@ -49,9 +45,14 @@ func main() {
 	y2, _ := strconv.ParseInt(args[5], 10, 64)
 
 	// type assertion
-	subimg := img.(subImager)
+	editable := img.(*image.RGBA)
 
-	actualSubImage := subimg.SubImage(image.Rect(int(x1), int(y1), int(x2), int(y2)))
+	actualSubImage := editable.SubImage(image.Rect(int(x1), int(y1), int(x2), int(y2)))
+
+	// in case you want to set specific pixels it needs to be converted back to the struct
+	// or use an interface like draw.Image
+	// pixelSettable := actualSubImage.(*image.RGBA)
+	// pixelSettable.Set(104, 105, color.RGBA{255, 0, 0, 255})
 
 	png.Encode(out, actualSubImage)
 
