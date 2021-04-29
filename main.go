@@ -50,7 +50,7 @@ func main() {
 	actualSubImage := editable.SubImage(image.Rect(int(x1), int(y1), int(x2), int(y2)))
 
 	// in case you want to set specific pixels it needs to be converted back to the struct
-	// or use an interface like draw.Image
+	// or to an interface like draw.Image
 	// pixelSettable := actualSubImage.(*image.RGBA)
 	// pixelSettable.Set(104, 105, color.RGBA{255, 0, 0, 255})
 
