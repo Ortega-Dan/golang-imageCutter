@@ -45,8 +45,10 @@ func main() {
 	x2, _ := strconv.ParseInt(args[4], 10, 64)
 	y2, _ := strconv.ParseInt(args[5], 10, 64)
 
-	// type assertion
-	editable := img.(*image.RGBA)
+	// type assertion to some interface that has the SubImage methods, thus that the actual structs have them implemented and restult usable in the following lines
+	editable := img.(interface {
+		SubImage(r image.Rectangle) image.Image
+	})
 
 	actualSubImage := editable.SubImage(image.Rect(int(x1), int(y1), int(x2), int(y2)))
 
